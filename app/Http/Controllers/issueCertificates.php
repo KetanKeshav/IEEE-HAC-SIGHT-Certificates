@@ -104,20 +104,13 @@ class issueCertificates extends Controller
     $certTitle = $certContent = null;
     $certSubTitle = "THIS IS TO THANK";
     if (isset($userData['member_type']) && $userData['member_type'] == 'member') {
-      if ($userData['team_rank'] > 0 && $userData['team_rank'] <= 100) {
-        $certTitle = 'Certificate of Achievement';
+        $certTitle = 'IEEE HAC & SIGHT recognize the successful completion of the project named';
         $certContent = '<p class="name">' . $userData['name'] . '</p>
-          <p>From team <span class="teamName">' . $userData['team_name'] . '</span>
-          Ranked <span class="teamRank">' . $userData['team_rank'] . '</span></p>
-          <p>In the IEEEXtreme 14.0 programming competition that hosted +7,300 participants</p>';
-      } else {
-        $certTitle = 'Certificate of Participation';
-        $certContent = '<p class="name">' . $userData['name'] . '</p>
-          <p>From team <span class="teamName">' . $userData['team_name'] . '</span>
-          Participated in IEEEXtreme 14.0 Programming<br /><br />Competition that Hosted +7,300 Participants</p>';
-      }
-      $certSubTitle = "This is to certify that";
-    } else if (isset($userData['member_type']) && $userData['member_type'] == 'proctor') {
+        <br><br><br><br>
+          <p class="teamName">undertaken in ' . $userData['team_name'] . '</p>
+          <p class="teamRank">Completed ' . $userData['team_rank'] . '</p>';
+      /**$certSubTitle = "This is to certify that";*/
+    } else if (isset($userData['member_type']) && $userData['member_type'] == 'Team Leader') {
       $certTitle = 'Certificate of Appreciation';
       $certSubTitle = "This is to certify that";
       $certContent = '<p class="name">' . $userData['name'] . '</p>
@@ -159,8 +152,8 @@ class issueCertificates extends Controller
       <head>
       <style>' . "
       @font-face {
-        font-family: 'Corsiva-I';
-        src: url('fonts/MonotypeCorsiva.ttf') format('truetype');
+        font-family: 'Calibri;
+        src: url('fonts/Calibri Regular.ttf') format('truetype');
         font-style: normal;
       }" . '
       html {
@@ -168,7 +161,7 @@ class issueCertificates extends Controller
       }
       @page { margin: 0px 0px; }
       body {
-        font-family: "Corsiva-I";
+        font-family: "Calibri";
         margin:0px;
       }
       .headerLine {
@@ -178,7 +171,7 @@ class issueCertificates extends Controller
       }
       .topPage {
         padding: 20px 0px 10px 0px;
-        font-size:48px;
+        font-size:26px;
         width:100%;
         color: #000;
         text-align:center;
@@ -208,18 +201,19 @@ class issueCertificates extends Controller
       }
       p.name {
         color: #00629b;
-        font-size:35px;
+        font-size:70px;
         text-align:center;
+        margin: 0 auto;
       }
       p.date {
         font-size:26px;
         z-index:100;
       }
-      span.teamName {
-        color:#00629b;
+      p.teamName {
+        color:#000000;
       }
-      span.teamRank {
-        color:#00629b;
+      p.teamRank {
+        color:#00629B;
       }
       span {
         color: #666666;
@@ -232,13 +226,11 @@ class issueCertificates extends Controller
       </style>
       </head>
       <body>
-      <div class="headerLine"></div>
-      <div class="ieeeLogo"><img src="img/ieee_mb_blue.png" width="284"/></div>
+      <div class="headerLine"><img src="img/HeaderHacSight.png" width="1123"/></div>
+      <br><br><br><br><br><br><br><br><br><br><br><br>
       <div class="topPage">' . $certTitle . '</div>
-      <p><span>' . $certSubTitle . '</span></p>
       ' . $certContent . '
-      <p class="date">24th October 2021</p>
-      <div class="footer"><img src="img/footer.png" width="1135"/></div>
+      <div class="footer"><img src="img/FooterHacSight.png" width="1123"/></div>
       </body>
       </html>';
     $pdf = App::make('dompdf.wrapper')->setPaper('a4', 'landscape');

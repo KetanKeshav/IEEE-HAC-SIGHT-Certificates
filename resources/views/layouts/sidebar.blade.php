@@ -1,7 +1,7 @@
 <div class="o-page__sidebar js-page-sidebar">
   <aside class="c-sidebar">
     <div class="c-sidebar__brand">
-      <a href="#"><img src="/Xtreme13_color.png" width="120" alt="IEEEXtreme"></a>
+      <a href="#"><img src="/HAC_SIGHT_LOGO.png" width="190" alt="IEEEXtreme"></a>
     </div>
 
     <!-- Scrollable -->

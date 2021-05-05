@@ -10,7 +10,7 @@
   <div class="o-page__card">
     <div class="c-card c-card--center">
       <span class="c-icon c-icon--large u-mb-small">
-        <img src="/Xtreme13_color.png" alt="IEEE Xtreme">
+        <img src="/HAC_SIGHT_LOGO.png" alt="IEEE Xtreme">
       </span>
 
       <h4 class="u-mb-medium">Welcome Back :)</h4>
