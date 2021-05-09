@@ -15,9 +15,11 @@ class ChangeRequest extends Migration
     {
         Schema::create('change_request', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('team_id');
-            $table->string('request_member_uid');
-            $table->string('member_type');
+            $table->string('Type_of_certificate');
+            $table->string('Name');
+            $table->string('Date_of_completion');
+            $table->string('Position');
+            $table->string('Committee');
             $table->text('changes');
             $table->string('status')->default('null');
             $table->timestamps();

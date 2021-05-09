@@ -50,7 +50,7 @@ class SendCertificates extends Command
     // }
     $baseURL = 'https://certificate.ieeextreme.org';
     /* Check whether issue all is set or not */
-    $systemSettings = DB::table('system_settings')->where('meta_key', 'generate_bulk_certificate')->first();
+    // $systemSettings = DB::table('system_settings')->where('meta_key', 'generate_bulk_certificate')->first();
     $attendeesCount = Attendees::where('certificate_email_status', false)->count();
     $emailContent = false;
 

@@ -15,14 +15,11 @@ class Attendees extends Migration
   {
     Schema::create('attendees', function (Blueprint $table) {
       $table->increments('id');
-      $table->string('team_name');
-      $table->string('team_id');
-      $table->integer('rank')->nullable();
-      $table->string('member_uid')->unique();
-      $table->string('member_fname');
-      $table->string('member_lname');
-      $table->string('member_email');
-      $table->string('member_type')->default('member');
+      $table->string('Type_of_certificate');
+      $table->string('Name');
+      $table->string('Date_of_completion');
+      $table->string('Position');
+      $table->string('Committee');
       $table->boolean('banned')->default(0);
       //$table->boolean('certificate_type')->default('cap'); // cap => certificateOfParticipation
       $table->boolean('certificate_status')->default(0);
