@@ -23,7 +23,7 @@
                   <th class="c-table__cell c-table__cell--head">Member Type</th>
                   <th class="c-table__cell c-table__cell--head">First Name</th>
                   <th class="c-table__cell c-table__cell--head">Last Name</th>
-                  <th class="c-table__cell c-table__cell--head">Team Name</th>
+                  <th class="c-table__cell c-table__cell--head">Certificate Type</th>
                   <th class="c-table__cell c-table__cell--head">Certificate Status</th>
                   <th class="c-table__cell c-table__cell--head">Email Status</th>
                 </tr>
@@ -33,10 +33,10 @@
                 @foreach ($dataArray['changes'] as $singleData)
                 <tr class="c-table__row">
                   <td class="c-table__cell">{{ $resultCounter++ }}</td>
-                  <td class="c-table__cell">{{ $singleData->team['member_type'] }}</td>
+                  <td class="c-table__cell">{{ $singleData->team['Certificate_Type'] }}</td>
                   <td class="c-table__cell">{{ $singleData->team['member_fname'] }} {{ $singleData->team['member_lname'] }}</td>
-                  <td class="c-table__cell">{{ $singleData->team['member_email'] }}</td>
-                  <td class="c-table__cell">{{ $singleData->team['team_name'] }}</td>
+                  <td class="c-table__cell">{{ $singleData->team['Email'] }}</td>
+                  <td class="c-table__cell">{{ $singleData->team['Certificate_Type'] }}</td>
                   <td class="c-table__cell">
                     @if($singleData->team['certificate_status'] == true)
                     <a class="c-badge c-badge--small c-badge--success" href="#">Success</a>

@@ -15,7 +15,7 @@ class ChangeRequest extends Migration
     {
         Schema::create('change_request', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('Type_of_certificate');
+            $table->string('Certificate_Type');
             $table->string('Name');
             $table->string('Date_of_completion');
             $table->string('Position');

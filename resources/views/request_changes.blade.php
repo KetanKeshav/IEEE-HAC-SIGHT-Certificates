@@ -68,9 +68,9 @@
       <h4 class="u-mb-medium">Request for changes</h4>
       <form action="/request-changes" method="post" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" class="c-input u-mb-small" name="team_id" value="{{ $dataArray['attendee']['team_id'] }}" required>
+        <input type="hidden" class="c-input u-mb-small" name="cert_id" value="{{ $dataArray['attendee']['cert_id'] }}" required>
         <input type="hidden" class="c-input u-mb-small" name="request_member_uid" value="{{ $dataArray['attendee']['request_member_uid'] }}" required>
-        <input type="hidden" class="c-input u-mb-small" name="member_type" value="{{ $dataArray['attendee']['member_type'] }}" required>
+        <input type="hidden" class="c-input u-mb-small" name="Certificate_Type" value="{{ $dataArray['attendee']['Certificate_Type'] }}" required>
 
         <div class="c-field">
           <label class="c-field__label">First Name</label>
@@ -83,11 +83,11 @@
         </div>
 
         <div class="c-field">
-          @if (!in_array($dataArray['attendee']['team_name'],['ambassador','execom','proctor'] ))
-            <label class="c-field__label">Team Name</label>
-            <input class="c-input u-mb-small" name="team_name" placeholder="Enter your team name" value="{{ $dataArray['attendee']['team_name'] }}" required>    
+          @if (!in_array($dataArray['attendee']['Certificate_Type'],['ambassador','execom','proctor'] ))
+            <label class="c-field__label">Certificate Type</label>
+            <input class="c-input u-mb-small" name="Certificate_Type" placeholder="Enter your Certificate Type" value="{{ $dataArray['attendee']['Certificate_Type'] }}" required>    
           @else
-            <input class="c-input u-mb-small" name="team_name" placeholder="Enter your team name" value="{{ $dataArray['attendee']['team_name'] }}" required style="display: none">    
+            <input class="c-input u-mb-small" name="Certificate_Type" placeholder="Enter your Certificate Type" value="{{ $dataArray['attendee']['Certificate_Type'] }}" required style="display: none">    
           @endif
         </div>
 

@@ -44,13 +44,13 @@ class SendSingleCertificates extends Command
    */
   public function handle()
   {
-    $attendees = Attendees::where('certificate_email_status', false)->orderBy('rank', 'ASC')->limit(250)->get();
+    $attendees = Attendees::where('certificate_email_status', false)->orderBy('id', 'ASC')->limit(250)->get();
     foreach ($attendees as $singleAttendees) {
       //variables
       $full_name = "$singleAttendees->member_fname $singleAttendees->member_lname";
-      $memberType = $singleAttendees->member_type;
-      $searchKey = $singleAttendees->member_email;
-      $sendTo = $singleAttendees->member_email;
+      $memberType = $singleAttendees->Certificate_Type;
+      $searchKey = $singleAttendees->Email;
+      $sendTo = $singleAttendees->Email;
       $uid = $singleAttendees->member_uid;
       //email setup
       $email = new \SendGrid\Mail\Mail();
@@ -76,7 +76,7 @@ class SendSingleCertificates extends Command
         DB::table('single_certificate_issue')->where('uid', $singleAttendees->member_uid)
           ->update(['status' => true]);
       } catch (Exception $e) {
-        echo '\n Message could not be sent to .' . $singleAttendees->member_email;
+        echo '\n Message could not be sent to .' . $singleAttendees->Email;
         echo '\n Caught exception: ' . $e->getMessage() . "\n";
         DB::table('attendees')->where('member_uid', $singleAttendees->member_uid)
           ->update(['email_log' => serialize($e->getMessage())]);

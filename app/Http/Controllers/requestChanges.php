@@ -10,14 +10,6 @@ use App\Models\NotificationEmail;
 
 class requestChanges extends Controller
 {
-  /**
-   * Request Changes - view Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return view | request-changes
-   */
 
   protected function view(Request $request)
   {
@@ -28,12 +20,12 @@ class requestChanges extends Controller
 
       if (isset($attendee)) {
 
-        $returnData['attendee']['team_id'] = $attendee->team_id;
+        $returnData['attendee']['cert_id'] = $attendee->cert_id;
         $returnData['attendee']['request_member_uid'] = $attendee->member_uid;
-        $returnData['attendee']['member_type'] = $attendee->member_type;
+        $returnData['attendee']['Certificate_Type'] = $attendee->Certificate_Type;
         $returnData['attendee']['fname'] = $attendee->member_fname;
         $returnData['attendee']['lname'] = $attendee->member_lname;
-        $returnData['attendee']['team_name'] = $attendee->team_name;
+        $returnData['attendee']['Certificate_Type'] = $attendee->Certificate_Type;
       } else {
         $returnData['attendee'] = "notFound";
       }
@@ -43,24 +35,16 @@ class requestChanges extends Controller
     return view('request_changes', ['dataArray' => $returnData]);
   }
 
-  /**
-   * Request Changes - POST
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return session | $sessionMessage
-   * @return redirect | request-changes
-   */
 
   protected function change(Request $request)
   {
     $changeRequest = new ChangeRequest();
-    $changeRequest->team_id = $request->get('team_id');
+    $changeRequest->cert_id = $request->get('cert_id');
     $changeRequest->request_member_uid = $request->get('request_member_uid');
-    $changeRequest->member_type = $request->get('member_type');
+    $changeRequest->Certificate_Type = $request->get('Certificate_Type');
 
     $requestedChanges['member_fname'] = $request->get('fname');
-    $requestedChanges['team_name'] = $request->get('team_name');
+    $requestedChanges['Certificate_Type'] = $request->get('Certificate_Type');
     $requestedChanges['member_lname'] = $request->get('lname');
 
     $changeRequest->changes = serialize($requestedChanges);
@@ -69,7 +53,7 @@ class requestChanges extends Controller
 
       /* Sending Notification Email */
       $notificationContent = "You have recieved a change request from " . $requestedChanges['member_fname'] .
-        " of " . $requestedChanges['team_name'];
+        " of " . $requestedChanges['Certificate_Type'];
       $emailTemplate = new NotificationEmail("Tittu", $notificationContent); //To be changed
       $emailContent = $emailTemplate->GenerateEmailTemplate();
       $mail = new Email(true, $emailContent);

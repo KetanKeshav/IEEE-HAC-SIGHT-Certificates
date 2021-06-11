@@ -20,7 +20,7 @@ class TestEmail extends Controller
       foreach ($singleIssueRequest as $singleChangeRequest) {
         $singleAttendees = Attendees::where('member_uid', $singleChangeRequest->uid)->first();
         $emailSubject = null;
-        if ($singleAttendees->member_type == 'member') {
+        if ($singleAttendees->Certificate_Type == 'member') {
           /**
            * Certificate of Participation - Attendees
            */
@@ -42,7 +42,7 @@ class TestEmail extends Controller
           $emailContent = $emailTemplate->GenerateEmailTemplate();
           //echo $emailContent;
           $emailSubject = 'IEEEXtreme 12.0 Certificate & Gifts';
-        } else if ($singleAttendees->member_type == 'proctor' || $singleAttendees->member_type == 'ambassador') {
+        } else if ($singleAttendees->Certificate_Type == 'proctor' || $singleAttendees->Certificate_Type == 'ambassador') {
           /**
            * Certificate of Achievement - Ambassador & Proctor
            */
@@ -61,7 +61,7 @@ class TestEmail extends Controller
           $emailContent = $emailTemplate->GenerateEmailTemplate();
           //echo $emailContent;
           $emailSubject = 'IEEEXtreme 12.0 Certificate of Appreciation';
-        } else if ($singleAttendees->member_type == 'judge' || $singleAttendees->member_type == 'qa') {
+        } else if ($singleAttendees->Certificate_Type == 'judge' || $singleAttendees->Certificate_Type == 'qa') {
           /**
            * Certificate of Achievement - Judges
            */
@@ -80,7 +80,7 @@ class TestEmail extends Controller
           $emailContent = $emailTemplate->GenerateEmailTemplate();
           //echo $emailContent;
           $emailSubject = 'IEEEXtreme 12.0 Certificate of Appreciation';
-        } else if ($singleAttendees->member_type == 'execom') {
+        } else if ($singleAttendees->Certificate_Type == 'execom') {
           /**
            * Certificate of Achievement - Execom
            */
@@ -104,7 +104,7 @@ class TestEmail extends Controller
         // if($emailContent && $singleAttendees) {
         //   try {
         //     $mail = new Email(true,$emailContent);
-        //     $mail->addAddress($singleAttendees->member_email,$singleAttendees->member_fname.' '.$singleAttendees->member_lname);
+        //     $mail->addAddress($singleAttendees->Email,$singleAttendees->member_fname.' '.$singleAttendees->member_lname);
         //     $mail->Subject = $emailSubject;
         //     if($mail->send()) {
         //       DB::table('attendees')->where('member_uid',$singleAttendees->member_uid)
@@ -114,13 +114,13 @@ class TestEmail extends Controller
         //       DB::table('single_certificate_issue')->where('uid',$singleAttendees->member_uid)
         //       ->update(['status' => true]);
         //     } else {
-        //       echo 'Message could not be sent. Mailer Error: '.$singleAttendees->member_email;
+        //       echo 'Message could not be sent. Mailer Error: '.$singleAttendees->Email;
         //       DB::table('attendees')->where('member_uid',$singleAttendees->member_uid)
         //       ->update(['email_log' => serialize($mail->ErrorInfo)]);
         //     }
         //   }
         //   catch (Exception $e) {
-        //     echo 'Message could not be sent to .'.$singleAttendees->member_email;
+        //     echo 'Message could not be sent to .'.$singleAttendees->Email;
         //     DB::table('attendees')->where('member_uid',$singleAttendees->member_uid)
         //     ->update(['email_log' => serialize($mail->ErrorInfo)]);
         //   }

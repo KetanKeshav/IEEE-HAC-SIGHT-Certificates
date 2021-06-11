@@ -30,7 +30,7 @@
 
         <div class="col-md-6 col-xl-6">
           <div class="c-card" data-mh="attendee-import">
-            Please upload the csv file with proper meta fields. Download the <a href="downloads/XtremeSampleCSV.csv" target="_blank">sample file</a>.
+            Please upload the csv file with proper meta fields. Download the <a href="downloads/HACorSIGHTSample.csv" target="_blank">sample file</a>.
           </div>
         </div>
 
@@ -44,10 +44,10 @@
               <thead class="c-table__head">
                 <tr class="c-table__row">
                   <th class="c-table__cell c-table__cell--head">#</th>
-                  <th class="c-table__cell c-table__cell--head">Rank</th>
-                  <th class="c-table__cell c-table__cell--head">Team Name</th>
-                  <th class="c-table__cell c-table__cell--head">Member Name</th>
-                  <th class="c-table__cell c-table__cell--head">Member E-Email</th>
+                  <th class="c-table__cell c-table__cell--head">id</th>
+                  <th class="c-table__cell c-table__cell--head">Certificate Type</th>
+                  <th class="c-table__cell c-table__cell--head">Project Name</th>
+                  <th class="c-table__cell c-table__cell--head">Member Email</th>
                   <th class="c-table__cell c-table__cell--head">Import Status</th>
                 </tr>
               </thead>
@@ -56,10 +56,10 @@
                 @foreach ($dataArray['importStatus'] as $singleData)
                 <tr class="c-table__row">
                   <td class="c-table__cell">{{ $resultCounter++ }}</td>
-                  <td class="c-table__cell">{{ $singleData['data']['rank'] }}</td>
-                  <td class="c-table__cell">{{ $singleData['data']['team_name'] }}</td>
-                  <td class="c-table__cell">{{ $singleData['data']['member_fname'] }} {{ $singleData['data']['member_lname'] }}</td>
-                  <td class="c-table__cell">{{ $singleData['data']['member_email'] }}</td>
+                  <td class="c-table__cell">{{ $singleData['data']['id'] }}</td>
+                  <td class="c-table__cell">{{ $singleData['data']['Certificate_Type'] }}</td>
+                  <td class="c-table__cell">{{ $singleData['data']['Project_Name'] }}</td>
+                  <td class="c-table__cell">{{ $singleData['data']['Email'] }}</td>
                   <td class="c-table__cell">
                     @if($singleData['status'] == "Yes")
                       <a class="c-badge c-badge--small c-badge--success">Success</a>

@@ -23,7 +23,7 @@
                   <th class="c-table__cell c-table__cell--head">Member Type</th>
                   <th class="c-table__cell c-table__cell--head">First Name</th>
                   <th class="c-table__cell c-table__cell--head">Last Name</th>
-                  <th class="c-table__cell c-table__cell--head">Team Name</th>
+                  <th class="c-table__cell c-table__cell--head">Certificate Type</th>
                   <th class="c-table__cell c-table__cell--head">Actions</th>
                 </tr>
               </thead>
@@ -35,7 +35,7 @@
                   @php
                     $singleChanges = unserialize($singleData->changes)
                   @endphp
-                  <td class="c-table__cell">{{ ucfirst($singleData->member_type) }}</td>
+                  <td class="c-table__cell">{{ ucfirst($singleData->Certificate_Type) }}</td>
                   <td class="c-table__cell">
                     <a class="c-badge c-badge--small c-badge--danger" href="#">
                       {{ $singleData->team['member_fname'] }}
@@ -54,10 +54,10 @@
                   </td>
                   <td class="c-table__cell">
                     <a class="c-badge c-badge--small c-badge--danger" href="#">
-                      {{ $singleData->team['team_name'] }}
+                      {{ $singleData->team['Certificate_Type'] }}
                     </a> /
                     <a class="c-badge c-badge--small c-badge--success" href="#">
-                      {{ $singleChanges['team_name'] }}
+                      {{ $singleChanges['Certificate_Type'] }}
                     </a>
                   </td>
                   <td class="c-table__cell">

@@ -71,15 +71,7 @@
             <i class="c-sidebar__icon feather icon-users"></i>Attendees
           </a>
         </li>
-        <li>
-          @if($dataArray['uri']=="Teams")
-          <a class="c-sidebar__link is-active" href="teams">
-          @else
-          <a class="c-sidebar__link" href="teams">
-          @endif
-            <i class="c-sidebar__icon feather icon-codepen"></i>Teams
-          </a>
-        </li>
+        
       </ul>
 
       <span class="c-sidebar__title">Changes</span>

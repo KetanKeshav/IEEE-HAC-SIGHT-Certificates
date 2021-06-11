@@ -9,14 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class requestedChanges extends Controller
 {
-  /**
-   * Requested Changes - view Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return view | requested-changes
-   */
 
   protected function view(Request $request)
   {
@@ -30,14 +22,6 @@ class requestedChanges extends Controller
     return view('requested_changes', ['dataArray' => $returnData]);
   }
 
-  /**
-   * Requested Changes - view Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return view | approved-changes
-   */
 
   protected function viewApproved(Request $request)
   {
@@ -51,13 +35,6 @@ class requestedChanges extends Controller
     return view('approved_changes', ['dataArray' => $returnData]);
   }
 
-  /**
-   * Requested Changes - view Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return redirect | requested-changes
-   */
 
   protected function action(Request $request)
   {
@@ -77,7 +54,7 @@ class requestedChanges extends Controller
 
         $teamUpdate = Attendees::where('member_uid', $changeData->request_member_uid)
           ->update([
-            'member_fname' => $changeDataChanges['member_fname'], 'member_lname' => $changeDataChanges['member_lname'], 'team_name' => $changeDataChanges['team_name'],
+            'member_fname' => $changeDataChanges['member_fname'], 'member_lname' => $changeDataChanges['member_lname'], 'Certificate_Type' => $changeDataChanges['Certificate_Type'],
             'certificate_status' => false
           ]);
 

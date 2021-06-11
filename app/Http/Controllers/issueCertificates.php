@@ -10,15 +10,6 @@ use App;
 
 class issueCertificates extends Controller
 {
-  /**
-   * Issue Certificate - Download Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return view | issue-certificates
-   */
-
   protected function view(Request $request)
   {
     $uri = $request->path();
@@ -33,21 +24,13 @@ class issueCertificates extends Controller
         ['bulk_data', 'like', '%' . $searchTerm . '%']
       ])->paginate(50);
     } else {
-      $returnData['attendees'] = Attendees::where('banned', false)->orderBy('rank', 'asc')->orderBy('team_name', 'asc')->paginate(50);
+      $returnData['attendees'] = Attendees::where('banned', false)->orderBy('id', 'asc')->orderBy('Certificate_Type', 'asc')->paginate(50);
     }
     $returnData['uri'] = $uri;
 
     return view('issue_certificates', ['dataArray' => $returnData]);
   }
 
-  /**
-   * Issue Certificate - Issue Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return view | issue-certificates
-   */
   protected function issue(Request $request)
   {
     $uid = $request->route('uid');
@@ -57,7 +40,7 @@ class issueCertificates extends Controller
       if ($uid == 'download') {
         $users = Attendees::get(); // All users
         $csvExporter = new \Laracsv\Export();
-        $csvExporter->build($users, ['member_uid', 'member_fname', 'member_email', 'member_type'])->download();
+        $csvExporter->build($users, ['member_uid', 'Project_Name', 'Name', 'Email', 'Certificate_Type'])->download();
         exit();
         //return redirect('issue-certificates')->with('success', 'Successfully downloaded the csv.');
 
@@ -82,14 +65,6 @@ class issueCertificates extends Controller
     }
   }
 
-  /**
-   * Issue Certificates - Download Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return stream | PDF download
-   */
 
   protected function download(Request $request)
   {
@@ -101,53 +76,80 @@ class issueCertificates extends Controller
     /**
      * Certificate Variables - Certificate Title
      */
-    $certTitle = $certContent = null;
+    
+    $certTitle = $certContent = $certHeader = $certFooter = null;
     $certSubTitle = "THIS IS TO THANK";
-    if (isset($userData['member_type']) && $userData['member_type'] == 'member') {
-        $certTitle = 'IEEE HAC & SIGHT recognize the successful completion of the project named';
-        $certContent = '<p class="name">' . $userData['name'] . '</p>
+    if ($userData['Certificate_Type'] == 'COC') {
+
+        $certTitle = '<br><br><br><br><br><br>IEEE HAC & SIGHT recognize the successful completion of the project named';
+        $certContent = '<p class="name">' . $userData['Project_Name'] . '</p>
         <br><br><br><br>
-          <p class="teamName">undertaken in ' . $userData['team_name'] . '</p>
-          <p class="teamRank">Completed ' . $userData['team_rank'] . '</p>';
+          <p class="teamName">undertaken in COVID-19</p>
+          <p class="teamRank">Completed ' . $userData['Month'] . '</p>';
+        $certHeader = '<div class="headerLine"><img src="img/HacSightHeader.png" width="1123"/> </div>';
+        $certFooter = '<div class="footer"><img src="img/HacSightFooter.png" width="1123"/></div>';
+        
       /**$certSubTitle = "This is to certify that";*/
-    } else if (isset($userData['member_type']) && $userData['member_type'] == 'Team Leader') {
-      $certTitle = 'Certificate of Appreciation';
-      $certSubTitle = "This is to certify that";
-      $certContent = '<p class="name">' . $userData['name'] . '</p>
-        <p>Volunteered as proctor to guide and oversee competing teams for the IEEEXtreme<br /><br />
-        14.0 programming competition that hosted +7,300 participants</p>';
-    } else if (isset($userData['member_type']) && $userData['member_type'] == 'judge') {
-      $certTitle = 'Certificate of Appreciation';
-      $certSubTitle = "This is to certify that";
-      $certContent = '<p class="name">' . $userData['name'] . '</p>
-        <p>Volunteered as a Judge for the IEEEXtreme 14.0 programming competition that<br /><br />
-        hosted +7,300 participants</p>';
-    } else if (isset($userData['member_type']) && $userData['member_type'] == 'qa') {
-      $certTitle = 'Certificate of Appreciation';
-      $certSubTitle = "This is to certify that";
-      $certContent = '<p class="name">' . $userData['name'] . '</p>
-        <p>Volunteered as a Quality Assurance team member for the IEEEXtreme 14.0<br /><br />
-        programming competition that hosted +7,300 participants</p>';
-    } else if (isset($userData['member_type']) && $userData['member_type'] == 'ambassador') {
-      $certTitle = 'Certificate of Appreciation';
-      $certSubTitle = "This is to certify that";
-      $certContent = '<p class="name">' . $userData['name'] . '</p>
-        <p>Volunteered as an Ambassador in the IEEEXtreme 14.0<br /><br />
-        programming competition that hosted +7,300 participants</p>';
-    } else if (isset($userData['member_type']) && $userData['member_type'] == 'execom') {
-      $certTitle = 'Certificate of Appreciation';
-      $certSubTitle = "This is to certify that";
-      $certContent = '<p class="name">' . $userData['name'] . '</p>
-        <p>Volunteered as an Executive Committee Member for the IEEEXtreme 14.0
-        <br /><br />programming competition that hosted +7,300 participants</p>';
-    } else {
-      $certTitle = 'Certificate of Participation';
-      $certContent = '<p class="name">' . $userData['name'] . '</p>
-        <p>From team <span class="teamName">' . $userData['team_name'] . '</span>
-        Participated in IEEEXtreme 14.0 Programming<br /><br />Competition that Hosted +7,300 Participants</p>';
-      $certSubTitle = "This is to certify that";
     }
 
+    else if ($userData['Certificate_Type'] == 'COA') {
+      $certTitle = 'The IEEE Special Interest Group on Humanitarian Technology is pleased to present this certificate to: <br>';
+        $certContent = '<p class="name">' . $userData['Name'] . '</p>
+        <br><br><br>
+          <p class="COA"> in appreciation of your efforts to support IEEE volunteers around the world carrying our impactful humanitarian activities </p>
+          <br><br>
+          <p class="teamName"> as '. $userData['Chair'] . ' of the </p>
+          <br><br>
+          <p class="COA1">IEEE SIGHT ' . $userData['Committee'] . '</p>;
+          <br><br><br>  
+          <p class="COA1"><b> January - December ' . $userData['Year'] . '</b></p>' ;
+        $certHeader = '<div class="headerLine"><img src="img/COAHeader.png" width="1123"/> </div>';
+        $certFooter = '<div class="footer"><img src="img/SIGHTFooter.jpg" width="1123"/></div>';
+    /**$certSubTitle = "This is to certify that";*/
+    }
+
+    else if ($userData['Certificate_Type'] == 'COR') {
+      $certTitle = 'The IEEE Humanitarian Activities Committee is pleased to present this certificate to:<br>';
+        $certContent = '<p class="name">' . $userData['Name'] . '</p>
+        <br><br><br>
+          <p class="COA"> in appreciation of your efforts to support IEEE volunteers around the world carrying our impactful humanitarian activities </p>
+          <br><br><br>
+          <p class="COR"> as the </p>
+          <br><br><br>
+          <p class="COR1">IEEE Humanitarian Activities Committee (HAC) </p>
+          <br><br>
+          <p class="COR1">' . $userData['Committee'] . ' ' . $userData['Chair'] . '</p>;
+          <br><br><br>  
+          <p class="COR2"><b> January 1, ' . $userData['Year'] . ' - December 31, ' . $userData['Year'] . '</b></p>' ;
+        $certHeader = '<div class="headerLine"><img src="img/CORHeader.png" width="1123"/> </div>';
+        $certFooter = '<div class="footer"><img src="img/HACFooter.jpg" width="1123"/></div>';
+    /**$certSubTitle = "This is to certify that";*/
+    }
+
+    else if ($userData['Certificate_Type'] == 'CONGO') {
+      $certTitle = '<p class = "CONGO1"> The IEEE Special Interest Group on Humanitarian Technology (SIGHT) ' . $userData['Year'] . ' Steering Committee recognizes<br></p>';
+        
+      $certContent = '<br><br><br><br><p class="name">' . $userData['Name'] . '</p>
+        <br><br><br><br><br><br><br>
+          <p class="CONGO2"> for successfully completing the IEEE SIGHT Trivia Challenge and participating in SIGHT Day ' . $userData['Year'] . ' activities. </p>
+          <br><br><br>
+          <br>
+          <p class="COR1">IEEE SIGHT Day Champion</p>;
+          <br><br><br><br>
+          <p class="COR2"><b> Awarded on the first IEEE SIGHT Day ' . $userData['Date'] . '</b></p>' ;
+        $certHeader = '<div class="headerLine"><img src="img/CONGOHeader.png" width="1123"/> </div>';
+        $certFooter = '<div class="footer"><img src="img/SteeringFooter.png" width="1123"/></div>';
+    /**$certSubTitle = "This is to certify that";*/
+    }
+    
+    /*else {
+      $certTitle = 'Certificate of Participation';
+      $certContent = '<p class="name">' . $userData['name'] . '</p>
+        <p>From team <span class="teamName">' . $userData['Certificate_Type'] . '</span>
+        Participated in IEEEXtreme 14.0 Programming<br /><br />Competition that Hosted +7,300 Participants</p>';
+      $certSubTitle = "This is to certify that";
+    }*/
+    
     $data = '<html>
       <head>
       <style>' . "
@@ -187,6 +189,12 @@ class issueCertificates extends Controller
         color:#00629b;
         text-align:center;
       }
+      p.COA {
+        color: #000000;
+        font-size:20px;
+        text-align:center;
+        margin: 0 auto;
+      }
       .headingLine {
         height:4px;
         width:5%;
@@ -201,7 +209,7 @@ class issueCertificates extends Controller
       }
       p.name {
         color: #00629b;
-        font-size:70px;
+        font-size:50px;
         text-align:center;
         margin: 0 auto;
       }
@@ -215,6 +223,39 @@ class issueCertificates extends Controller
       p.teamRank {
         color:#00629B;
       }
+      p.COA1 {
+        color:#00629B;
+        margin: 0 auto;
+      }
+      p.COR {
+        color:#000000;
+        font-size:30px;
+        margin: 0 auto;
+      }
+      p.COR1 {
+        color:#00629B;
+        font-size:32px;
+        margin: 0 auto;
+      }
+
+      p.COR2 {
+        color:#00629B;
+        font-size:40px;
+        margin: 0 auto;
+      }
+
+      p.CONGO1 {
+        color:#000000;
+        font-size:24px;
+        margin: 0 auto;
+      }
+      p.CONGO2 {
+        color: #000000;
+        font-size:24px;
+        text-align:center;
+        margin: 0 auto;
+      }
+
       span {
         color: #666666;
       }
@@ -226,11 +267,11 @@ class issueCertificates extends Controller
       </style>
       </head>
       <body>
-      <div class="headerLine"><img src="img/HeaderHacSight.png" width="1123"/></div>
-      <br><br><br><br><br><br><br><br><br><br><br><br>
+      ' . $certHeader . '
+      <br><br><br>
       <div class="topPage">' . $certTitle . '</div>
       ' . $certContent . '
-      <div class="footer"><img src="img/FooterHacSight.png" width="1123"/></div>
+      ' . $certFooter . '
       </body>
       </html>';
     $pdf = App::make('dompdf.wrapper')->setPaper('a4', 'landscape');
@@ -249,14 +290,6 @@ class issueCertificates extends Controller
     // return $pdf->stream($userID.'.pdf');
   }
 
-  /**
-   * Issued Certificates - Issued Certificates Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return view | issued-certificates
-   */
   protected function issuedView(Request $request)
   {
     $uri = $request->path();
@@ -264,20 +297,12 @@ class issueCertificates extends Controller
       $uri = "Issued Certificates";
     }
 
-    $returnData['attendees'] = Attendees::where('certificate_status', true)->orderBy('team_name', 'asc')->paginate(50);
+    $returnData['attendees'] = Attendees::where('certificate_status', true)->orderBy('Certificate_Type', 'asc')->paginate(50);
     $returnData['uri'] = $uri;
 
     return view('issued_certificates', ['dataArray' => $returnData]);
   }
 
-  /**
-   * Pending Certificates - Pending Certificates Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return view | pending-certificates
-   */
   protected function pendingCertificateView(Request $request)
   {
     $uri = $request->path();
@@ -285,7 +310,7 @@ class issueCertificates extends Controller
       $uri = "Pending Certificates";
     }
 
-    $returnData['attendees'] = Attendees::where('certificate_status', false)->orderBy('rank', 'asc')->orderBy('team_name', 'asc')->paginate(50);
+    $returnData['attendees'] = Attendees::where('certificate_status', false)->orderBy('id', 'asc')->orderBy('Certificate_Type', 'asc')->paginate(50);
     $returnData['uri'] = $uri;
 
     return view('issued_certificates', ['dataArray' => $returnData]);

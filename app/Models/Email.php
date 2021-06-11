@@ -1,15 +1,5 @@
 <?php
 
-/**
- * Models/Email
- * BytaCoin - PHPMailer Email Model
- * Dependency - PHPMailer, phpmailer/phpmailer
- * PHP Laravel Version 5.5
- *
- * @author Tittu Varghese (tittu@netobjex.com)
- *
- * (c) netObjex (netobjex.com)
- */
 
 namespace App\Models;
 

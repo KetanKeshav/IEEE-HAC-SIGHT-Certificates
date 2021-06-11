@@ -7,15 +7,6 @@ use App\Models\Attendees;
 
 class attendeesPage extends Controller
 {
-  /**
-   * Attendees - View Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return view | attendees
-   */
-
   protected function view(Request $request)
   {
 
@@ -24,19 +15,10 @@ class attendeesPage extends Controller
       $uri = "Attendees";
     }
     $returnData['uri'] = $uri;
-    $returnData['attendees'] = Attendees::orderBy('rank', 'asc')->orderBy('team_name', 'asc')->paginate(50);
+    $returnData['attendees'] = Attendees::orderBy('id', 'asc')->orderBy('Certificate_Type', 'asc')->paginate(50);
 
     return view('attendees', ['dataArray' => $returnData]);
   }
-
-  /**
-   * Teams - View Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return view | teams
-   */
 
   protected function viewTeam(Request $request)
   {
@@ -46,7 +28,7 @@ class attendeesPage extends Controller
       $uri = "Teams";
     }
     $returnData['uri'] = $uri;
-    $returnData['attendees'] = Attendees::orderBy('rank', 'asc')->orderBy('team_name', 'asc')->paginate(50);
+    $returnData['attendees'] = Attendees::orderBy('id', 'asc')->orderBy('Certificate_Type', 'asc')->paginate(50);
 
     return view('teams', ['dataArray' => $returnData]);
   }

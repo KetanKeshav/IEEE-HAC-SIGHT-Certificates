@@ -1,16 +1,5 @@
 <?php
 
-/**
- * Models/NotificationEmailTemplate
- * IEEEXtreme - PHPMailer Notification Email Template Model
- * Dependency - PHPMailer, phpmailer/phpmailer
- * PHP Laravel Version 5.5
- *
- * @author Tittu Varghese (tittu@netobjex.com)
- *
- * (c) netObjex (netobjex.com)
- */
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

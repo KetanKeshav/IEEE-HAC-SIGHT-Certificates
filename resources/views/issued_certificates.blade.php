@@ -21,11 +21,10 @@
                 <tr class="c-table__row">
                   <th class="c-table__cell c-table__cell--head">#</th>
                   <th class="c-table__cell c-table__cell--head">Status</th>
-                  <th class="c-table__cell c-table__cell--head">Member Type</th>
+                  <th class="c-table__cell c-table__cell--head">Project Name</th>
                   <th class="c-table__cell c-table__cell--head">Member Name</th>
-                  <th class="c-table__cell c-table__cell--head">Rank</th>
                   <th class="c-table__cell c-table__cell--head">Email</th>
-                  <th class="c-table__cell c-table__cell--head">Team Name</th>
+                  <th class="c-table__cell c-table__cell--head">Certificate Type</th>
                 </tr>
               </thead>
               <tbody>
@@ -45,11 +44,10 @@
                     <a class="c-badge c-badge--small c-badge--danger" href="#">Email</a>
                     @endif
                   </td>
-                  <td class="c-table__cell">{{ $singleData->member_type }}</td>
-                  <td class="c-table__cell">{{ $singleData->member_fname }} {{ $singleData->member_lname }}</td>
-                  <td class="c-table__cell">{{ $singleData->rank }}</td>
-                  <td class="c-table__cell">{{ $singleData->member_email }}</td>
-                  <td class="c-table__cell">{{ $singleData->team_name }}</td>
+                  <td class="c-table__cell"><a href="/generate-certificate/{{ $singleData->member_uid }}" target="_blank">{{ $singleData->Project_Name }}</a></td>
+                  <td class="c-table__cell"><a href="/generate-certificate/{{ $singleData->member_uid }}" target="_blank">{{ $singleData->Name }} </a></td>
+                  <td class="c-table__cell">{{ $singleData->Email }}</td>
+                  <td class="c-table__cell">{{ $singleData->Certificate_Type }}</td>
                 </tr>
                 @endforeach
               </tbody>

@@ -12,15 +12,6 @@ use Hashids\Hashids;
 
 class importAttendees extends Controller
 {
-  /**
-   * Import Attendees - View Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return view | import_attendees
-   */
-
   protected function view(Request $request)
   {
 
@@ -32,15 +23,6 @@ class importAttendees extends Controller
 
     return view('import_attendees', ['dataArray' => $returnData]);
   }
-
-  /**
-   * Import Attendees - View Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return view | import_attendees
-   */
 
   protected function upload(Request $request)
   {
@@ -75,31 +57,31 @@ class importAttendees extends Controller
     foreach ($attendeeRecords as $singleRecord) {
       $hashids = new Hashids($singleRecord[4]); // Member 1 Email Address as Salt
       $newTeamMember = true;
-      $memberFieldCounter = 2;
-      $teamId = $hashids->encode(time(), rand(1111, 99999));
+      $memberFieldCounter = 1;
+      $certId = $hashids->encode(time(), rand(1111, 99999));
 
       while ($newTeamMember == true) {
         $attendees = new Attendees();
-        $firstNameFiled = 0 + $memberFieldCounter; // 2
-        $lastNameFiled = 1 + $memberFieldCounter; // 3
+        $projectNameFiled = 4 + $memberFieldCounter; // 2
+        $lastNameFiled = 2 + $memberFieldCounter; // 3
         $emailFiled = 2 + $memberFieldCounter; // 4
         $memberNumberField = 3 + $memberFieldCounter;
 
         $hashids = new Hashids($singleRecord[$emailFiled]); // Member Email Address as Salt
 
-        $attendees['rank'] = (int)$singleRecord[0];
-        $attendees['team_name'] = $singleRecord[1];
-        $attendees['team_id'] = $teamId;
+        $attendees['Certificate_Type'] = $singleRecord[0];
+        $attendees['Name'] = $singleRecord[1];
+        $attendees['cert_id'] = $certId;
         $attendees['member_uid'] = $hashids->encode(time(), rand(1111, 99999), rand(11, 999));
-        $attendees['member_fname'] = $singleRecord[$firstNameFiled];
-        $attendees['member_lname'] = $singleRecord[$lastNameFiled];
-        $attendees['member_email'] = $singleRecord[$emailFiled];
-        if (isset($singleRecord[14]) && $singleRecord[14] != '') {
-          $attendees['member_type'] = $singleRecord[14];
-        }
-        $attendees['member_number'] = $singleRecord[$memberNumberField];
+        $attendees['Year'] = $singleRecord[2];
+        $attendees['Position_chair_member'] = $singleRecord[3];
+        $attendees['Committee_of_person'] = $singleRecord[4];
+        $attendees['Date_of_Completion'] = $singleRecord[5];
+        $attendees['Project_Name'] = $singleRecord[6];
+        $attendees['Month_of_Completion'] = $singleRecord[7];
+        $attendees['Email'] = $singleRecord[8];
         $attendees['bulk_data'] = serialize($attendees);
-        unset($attendees['member_number']);
+        //unset($attendees['member_number']);
 
         $importStatus['data'] = $attendees;
 

@@ -55,10 +55,10 @@ class SendCertificates extends Command
     $emailContent = false;
 
     if ($systemSettings->value == "all" && $attendeesCount > 0) {
-      $attendees = Attendees::where('certificate_email_status', false)->orderBy('rank', 'ASC')->limit(250)->get();
+      $attendees = Attendees::where('certificate_email_status', false)->orderBy('id', 'ASC')->limit(250)->get();
       foreach ($attendees as $singleAttendees) {
         $emailSubject = null;
-        if ($singleAttendees->member_type == 'member') {
+        if ($singleAttendees->Certificate_Type == 'member') {
           /**
            * Certificate of Participation - Attendees
            */
@@ -80,7 +80,7 @@ class SendCertificates extends Command
           $emailContent = $emailTemplate->GenerateEmailTemplate();
           //echo $emailContent;
           $emailSubject = 'IEEEXtreme 13.0 Certificate';
-        } else if ($singleAttendees->member_type == 'proctor' || $singleAttendees->member_type == 'ambassador') {
+        } else if ($singleAttendees->Certificate_Type == 'proctor' || $singleAttendees->Certificate_Type == 'ambassador') {
           /**
            * Certificate of Achievement - Ambassador & Proctor
            */
@@ -102,7 +102,7 @@ class SendCertificates extends Command
           $emailContent = $emailTemplate->GenerateEmailTemplate();
           //echo $emailContent;
           $emailSubject = 'IEEEXtreme 13.0 Certificate of Appreciation';
-        } else if ($singleAttendees->member_type == 'judge' || $singleAttendees->member_type == 'qa') {
+        } else if ($singleAttendees->Certificate_Type == 'judge' || $singleAttendees->Certificate_Type == 'qa') {
           /**
            * Certificate of Achievement - Judges
            */
@@ -124,7 +124,7 @@ class SendCertificates extends Command
           $emailContent = $emailTemplate->GenerateEmailTemplate();
           //echo $emailContent;
           $emailSubject = 'IEEEXtreme 13.0 Certificate of Appreciation';
-        } else if ($singleAttendees->member_type == 'execom') {
+        } else if ($singleAttendees->Certificate_Type == 'execom') {
           /**
            * Certificate of Achievement - Execom
            */
@@ -148,16 +148,16 @@ class SendCertificates extends Command
           $emailSubject = 'IEEEXtreme 13.0 Certificate of Appreciation';
         }
 
-        if ($emailContent && $singleAttendees && filter_var($singleAttendees->member_email, FILTER_VALIDATE_EMAIL)) {
+        if ($emailContent && $singleAttendees && filter_var($singleAttendees->Email, FILTER_VALIDATE_EMAIL)) {
           try {
             $mail = new Email(true, $emailContent);
-            if ($singleAttendees->member_email && $singleAttendees->member_fname && $singleAttendees->member_fname != '') {
-              $mail->addAddress($singleAttendees->member_email, $singleAttendees->member_fname . ' ' . $singleAttendees->member_lname);
-            } else if ($singleAttendees->member_email && $singleAttendees->member_lname && $singleAttendees->member_lname != '') {
-              $mail->addAddress($singleAttendees->member_email, $singleAttendees->member_lname);
+            if ($singleAttendees->Email && $singleAttendees->member_fname && $singleAttendees->member_fname != '') {
+              $mail->addAddress($singleAttendees->Email, $singleAttendees->member_fname . ' ' . $singleAttendees->member_lname);
+            } else if ($singleAttendees->Email && $singleAttendees->member_lname && $singleAttendees->member_lname != '') {
+              $mail->addAddress($singleAttendees->Email, $singleAttendees->member_lname);
             }
             $mail->Subject = $emailSubject;
-            if ($singleAttendees->member_email && $mail->send()) {
+            if ($singleAttendees->Email && $mail->send()) {
               echo "Sent";
               DB::table('attendees')->where('member_uid', $singleAttendees->member_uid)
                 ->update(['certificate_email_status' => true]);
@@ -167,7 +167,7 @@ class SendCertificates extends Command
                 ->update(['email_log' => serialize($mail->ErrorInfo)]);
             }
           } catch (Exception $e) {
-            echo '\n Message could not be sent. Mailer Error: ' . $singleAttendees->member_email;
+            echo '\n Message could not be sent. Mailer Error: ' . $singleAttendees->Email;
             DB::table('attendees')->where('member_uid', $singleAttendees->member_uid)
               ->update(['certificate_email_status' => 1, 'email_log' => 'unable to send']);
 

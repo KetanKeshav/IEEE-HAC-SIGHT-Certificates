@@ -14,14 +14,6 @@ class claimCertificates extends Controller
     return view('claim_certificates');
   }
 
-  /**
-   * Claim Certificates - Download Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return array | $dataArray
-   * @return stream | PDF download
-   */
 
   protected function download(Request $request)
   {
@@ -51,45 +43,45 @@ class claimCertificates extends Controller
      */
     $certTitle = $certContent = null;
     $certSubTitle = "THIS IS TO THANK";
-    if (isset($userData['member_type']) && $userData['member_type'] == 'member') {
+    if (isset($userData['Certificate_Type']) && $userData['Certificate_Type'] == 'CONGO') {
       if ($userData['team_rank'] > 0 && $userData['team_rank'] <= 100) {
         $certTitle = 'Certificate of Achievement';
         $certContent = '<p class="name">' . $userData['name'] . '</p>
-          <p>From team <span class="teamName">' . $userData['team_name'] . '</span>
+          <p>From team <span class="teamName">' . $userData['Certificate_Type'] . '</span>
           Ranked <span class="teamRank">' . $userData['team_rank'] . '</span></p>
           <p>In the IEEEXtreme 14.0 programming competition that hosted +7,300 participants</p>';
       } else {
         $certTitle = 'Certificate of Participation';
         $certContent = '<p class="name">' . $userData['name'] . '</p>
-          <p>From team <span class="teamName">' . $userData['team_name'] . '</span>
+          <p>From team <span class="teamName">' . $userData['Certificate_Type'] . '</span>
           Participated in IEEEXtreme 14.0 Programming<br /><br />Competition that Hosted +7,300 Participants</p>';
       }
       $certSubTitle = "This is to certify that";
-    } else if (isset($userData['member_type']) && $userData['member_type'] == 'proctor') {
+    } else if (isset($userData['Certificate_Type']) && $userData['Certificate_Type'] == 'proctor') {
       $certTitle = 'Certificate of Appreciation';
       $certSubTitle = "This is to certify that";
       $certContent = '<p class="name">' . $userData['name'] . '</p>
         <p>Volunteered as proctor to guide and oversee competing teams for the IEEEXtreme<br /><br />
         14.0 programming competition that hosted +7,300 participants</p>';
-    } else if (isset($userData['member_type']) && $userData['member_type'] == 'judge') {
+    } else if (isset($userData['Certificate_Type']) && $userData['Certificate_Type'] == 'judge') {
       $certTitle = 'Certificate of Appreciation';
       $certSubTitle = "This is to certify that";
       $certContent = '<p class="name">' . $userData['name'] . '</p>
         <p>Volunteered as a Judge for the IEEEXtreme 14.0 programming competition that<br /><br />
         hosted +7,300 participants</p>';
-    } else if (isset($userData['member_type']) && $userData['member_type'] == 'qa') {
+    } else if (isset($userData['Certificate_Type']) && $userData['Certificate_Type'] == 'qa') {
       $certTitle = 'Certificate of Appreciation';
       $certSubTitle = "This is to certify that";
       $certContent = '<p class="name">' . $userData['name'] . '</p>
         <p>Volunteered as a Quality Assurance team member for the IEEEXtreme 14.0<br /><br />
         programming competition that hosted +7,300 participants</p>';
-    } else if (isset($userData['member_type']) && $userData['member_type'] == 'ambassador') {
+    } else if (isset($userData['Certificate_Type']) && $userData['Certificate_Type'] == 'ambassador') {
       $certTitle = 'Certificate of Appreciation';
       $certSubTitle = "This is to certify that";
       $certContent = '<p class="name">' . $userData['name'] . '</p>
         <p>Volunteered as an Ambassador in the IEEEXtreme 14.0<br /><br />
         programming competition that hosted +7,300 participants</p>';
-    } else if (isset($userData['member_type']) && $userData['member_type'] == 'execom') {
+    } else if (isset($userData['Certificate_Type']) && $userData['Certificate_Type'] == 'execom') {
       $certTitle = 'Certificate of Appreciation';
       $certSubTitle = "This is to certify that";
       $certContent = '<p class="name">' . $userData['name'] . '</p>
@@ -98,7 +90,7 @@ class claimCertificates extends Controller
     } else {
       $certTitle = 'Certificate of Participation';
       $certContent = '<p class="name">' . $userData['name'] . '</p>
-        <p>From team <span class="teamName">' . $userData['team_name'] . '</span>
+        <p>From team <span class="teamName">' . $userData['Certificate_Type'] . '</span>
         Participated in IEEEXtreme 14.0 Programming<br /><br />Competition that Hosted +7,300 Participants</p>';
       $certSubTitle = "This is to certify that";
     }

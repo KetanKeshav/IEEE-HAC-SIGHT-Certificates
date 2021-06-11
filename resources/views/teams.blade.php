@@ -14,9 +14,9 @@
               <thead class="c-table__head">
                 <tr class="c-table__row">
                   <th class="c-table__cell c-table__cell--head">#</th>
-                  <th class="c-table__cell c-table__cell--head">Team Name</th>
+                  <th class="c-table__cell c-table__cell--head">Certificate Type</th>
                   <th class="c-table__cell c-table__cell--head">Member Name</th>
-                  <th class="c-table__cell c-table__cell--head">Rank</th>
+                  <th class="c-table__cell c-table__cell--head">id</th>
                   <th class="c-table__cell c-table__cell--head">Email</th>
                 </tr>
               </thead>
@@ -25,10 +25,10 @@
                 @foreach ($dataArray['attendees'] as $singleData)
                 <tr class="c-table__row">
                   <td class="c-table__cell">{{ $resultCounter++ }}</td>
-                  <td class="c-table__cell">{{ $singleData->team_name }}</td>
+                  <td class="c-table__cell">{{ $singleData->Certificate_Type }}</td>
                   <td class="c-table__cell">{{ $singleData->member_fname }} {{ $singleData->member_lname }}</td>
-                  <td class="c-table__cell">{{ $singleData->rank }}</td>
-                  <td class="c-table__cell">{{ $singleData->member_email }}</td>
+                  <td class="c-table__cell">{{ $singleData->id }}</td>
+                  <td class="c-table__cell">{{ $singleData->Email }}</td>
                 </tr>
                 @endforeach
               </tbody>

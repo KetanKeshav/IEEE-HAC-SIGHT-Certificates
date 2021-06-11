@@ -26,7 +26,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="c-field has-icon-right">
-                    <input class="c-input" type="text" name="s" id="s" placeholder="Search by applicant's IEEE number or Email or Team name">
+                    <input class="c-input" type="text" name="s" id="s" placeholder="Search by applicant's IEEE number or Email or Certificate Type">
                     <span class="c-field__icon">
                       <i class="feather icon-search"></i>
                     </span>
@@ -47,11 +47,10 @@
                 <tr class="c-table__row">
                   <th class="c-table__cell c-table__cell--head">#</th>
                   <th class="c-table__cell c-table__cell--head">Issue Certificate</th>
-                  <th class="c-table__cell c-table__cell--head">Member Type</th>
+                  <th class="c-table__cell c-table__cell--head">Project Name</th>
                   <th class="c-table__cell c-table__cell--head">Member Name</th>
-                  <th class="c-table__cell c-table__cell--head">Rank</th>
                   <th class="c-table__cell c-table__cell--head">Email</th>
-                  <th class="c-table__cell c-table__cell--head">Team Name</th>
+                  <th class="c-table__cell c-table__cell--head">Certificate Type</th>
                 </tr>
               </thead>
               <tbody>
@@ -66,11 +65,10 @@
                       </a>
                     </div>
                   </td>
-                  <td class="c-table__cell">{{ $singleData->member_type }}</td>
-                  <td class="c-table__cell"><a href="/generate-certificate/{{ $singleData->member_uid }}" target="_blank">{{ $singleData->member_fname }} {{ $singleData->member_lname }}</a></td>
-                  <td class="c-table__cell">{{ $singleData->rank }}</td>
-                  <td class="c-table__cell">{{ $singleData->member_email }}</td>
-                  <td class="c-table__cell">{{ $singleData->team_name }}</td>
+                  <td class="c-table__cell"><a href="/generate-certificate/{{ $singleData->member_uid }}" target="_blank">{{ $singleData->Project_Name }}</a></td>
+                  <td class="c-table__cell"><a href="/generate-certificate/{{ $singleData->member_uid }}" target="_blank">{{ $singleData->Name }} </a></td>
+                  <td class="c-table__cell">{{ $singleData->Email }}</td>
+                  <td class="c-table__cell">{{ $singleData->Certificate_Type }}</td>
                 </tr>
                 @endforeach
               </tbody>

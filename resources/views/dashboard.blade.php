@@ -18,16 +18,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 col-xl-3">
-          <div class="c-card">
-            <span class="c-icon c-icon--danger u-mb-small">
-              <i class="feather icon-codepen"></i>
-            </span>
 
-            <h3 class="c-text--subtitle">Teams</h3>
-            <h1>{{ $dataArray['teams'] }}</h1>
-          </div>
-        </div>
 
         <div class="col-md-6 col-xl-3">
           <div class="c-card">

@@ -9,15 +9,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class userLogin extends Controller
 {
-  /**
-   * Requested Changes - view Page
-   * @author Tittu Varghese (tittu@servntire.com)
-   *
-   * @param  Request | $request
-   * @return redirect | authentication
-   * @return view | dashboard
-   */
-
   protected function authentication(Request $request)
   {
     $user = new User;
@@ -51,12 +42,6 @@ class userLogin extends Controller
       return redirect("login")->with('error', 'Invalid email address or password.');
     }
   }
-
-  /**
-   * User Logout Function
-   * @author Tittu Varghese (tittu@servntire.com)
-   * @return redirect | login | dashboard
-   */
 
   protected function logout()
   {
