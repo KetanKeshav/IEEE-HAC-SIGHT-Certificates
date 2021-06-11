@@ -17,7 +17,7 @@ class dashboard extends Controller
       $uri = "Dashboard";
     }
     $returnData['uri'] = $uri;
-    $returnData['attendees'] = Attendees::where('Certificate_Type', 'Member')->count();
+    $returnData['attendees'] = Attendees::count();
     //$returnData['teams'] = Attendees::distinct('cert_id')->where('Certificate_Type', 'Member')->count('cert_id');
     $returnData['issued_certificates'] = Attendees::where('certificate_status', true)->count();
     $returnData['issued_certificates_email'] = Attendees::where('certificate_email_status', true)->count();
