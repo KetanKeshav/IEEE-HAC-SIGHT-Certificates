@@ -56,16 +56,15 @@ class importAttendees extends Controller
     $attendeeRecords = $headerFilter->process($csv);
     foreach ($attendeeRecords as $singleRecord) {
       $hashids = new Hashids($singleRecord[4]); // Member 1 Email Address as Salt
-      $newTeamMember = true;
-      $memberFieldCounter = 1;
+      $memberFieldCounter = 5;
       $certId = $hashids->encode(time(), rand(1111, 99999));
 
-      while ($newTeamMember == true) {
+      //while ($newTeamMember == true) {
         $attendees = new Attendees();
-        $projectNameFiled = 4 + $memberFieldCounter; // 2
-        $lastNameFiled = 2 + $memberFieldCounter; // 3
+        //$projectNameFiled = 4 + $memberFieldCounter; // 2
+        //$lastNameFiled = 2 + $memberFieldCounter; // 3
         $emailFiled = 2 + $memberFieldCounter; // 4
-        $memberNumberField = 3 + $memberFieldCounter;
+        //$memberNumberField = 3 + $memberFieldCounter;
 
         $hashids = new Hashids($singleRecord[$emailFiled]); // Member Email Address as Salt
 
@@ -94,17 +93,6 @@ class importAttendees extends Controller
 
         /* Checking for other members in the team */
         $memberFieldCounter += 4;
-
-        if (isset($singleRecord[$memberFieldCounter]) && $singleRecord[$memberFieldCounter] == '') {
-          $newTeamMember = false;
-        } else if (!isset($singleRecord[$memberFieldCounter])) {
-          $newTeamMember = false;
-        } else if (empty($singleRecord[$memberFieldCounter])) {
-          $newTeamMember = false;
-        } else if ($memberFieldCounter > 10) {
-          $newTeamMember = false;
-        }
-      }
     }
     return view('import_attendees', ['dataArray' => $returnData]);
   }
