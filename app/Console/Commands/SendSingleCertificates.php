@@ -54,11 +54,11 @@ class SendSingleCertificates extends Command
       $uid = $singleAttendees->member_uid;
       //email setup
       $email = new \SendGrid\Mail\Mail();
-      $email->setFrom("certificates@ieeextreme.org", "IEEEXtreme Executive Committee");
+      $email->setFrom("ketan.keshav@ieee.org", "IEEE HAC & SIGHT CERTIFICATES");
       $email->setSubject("Claim your IEEEXtreme certificate");
       $email->addTo($sendTo);
-      $email->setReplyTo('xtremecert@ieee.org');
-      $email->setTemplateId("d-1e49599cfd8b45e8a48f37b0291c49b7");
+      $email->setReplyTo('ketan.keshav@ieee.org');
+      $email->setTemplateId("d-93ff64b85a104136a6e19754f90826e6");
       $email->addDynamicTemplateData("full_name", $full_name);
       $email->addDynamicTemplateData("change_url", "https://certificate.ieeextreme.org/request-changes/$uid");
       $email->addDynamicTemplateData("certificate_url", "https://certificate.ieeextreme.org/generate-email-certificate/$uid");
@@ -71,8 +71,8 @@ class SendSingleCertificates extends Command
 
         DB::table('attendees')->where('member_uid', $singleAttendees->member_uid)
           ->update(['certificate_email_status' => true]);
-        DB::table('change_request')->where('request_member_uid', $singleAttendees->member_uid)
-          ->update(['status' => 'sent']);
+        //DB::table('change_request')->where('request_member_uid', $singleAttendees->member_uid)
+          //->update(['status' => 'sent']);
         DB::table('single_certificate_issue')->where('uid', $singleAttendees->member_uid)
           ->update(['status' => true]);
       } catch (Exception $e) {
